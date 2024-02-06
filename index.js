@@ -46,7 +46,12 @@ app.post('/api/shorturl', (req,res) =>{
   // url = req.body.url 
 }); 
 app.get('/api/shorturl/:index', function(req, res) {
-  res.redirect(urlArray[parseInt(req.params.index)].original_url);
+  console.log(`trying to reach /api/shorturl/${req.params.index}`);
+  try {
+    res.redirect(urlArray[parseInt(req.params.index)].original_url);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.listen(port, function() {
