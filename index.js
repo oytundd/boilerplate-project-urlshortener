@@ -21,17 +21,14 @@ app.get('/api/hello', function(req, res) {
 });
 const urlArray = []
 app.post('/api/shorturl', (req,res) =>{
-  // console.log(req.body.url);
-
   dns.lookup(req.body.url, (err, address, family) => {
   if (err) {
     console.log(`invalid ${req.body.url}`)
-    return res.json({error:'invalid url'});
-    // console.error('DNS lookup failed', err);
+    res.json({error:'invalid url'});
     
   }else {
     if (!req.body.url.includes("http")) {
-      return res.json({error: "invalid url"});
+      res.json({error: "invalid url"});
     }else{
       console.log(`valid ${req.body.url}`)
       const urlJson = {original_url: req.body.url, short_url: urlArray.length}
@@ -40,10 +37,7 @@ app.post('/api/shorturl', (req,res) =>{
     }
 
   }
-
-  // console.log('IP Address:', address);
 })
-  // url = req.body.url 
 }); 
 app.get('/api/shorturl/:index', function(req, res) {
   console.log(`trying to reach /api/shorturl/${req.params.index}`);
