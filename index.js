@@ -31,12 +31,14 @@ app.post('/api/shorturl', (req,res) =>{
     
   }else {
     if (!req.body.url.includes("http")) {
-      res.json({error: "invalid url"});
+      return res.json({error: "invalid url"});
+    }else{
+      console.log(`valid ${req.body.url}`)
+      const urlJson = {original_url: req.body.url, short_url: urlArray.length}
+      urlArray.push(urlJson);
+      res.json(urlJson);
     }
-    console.log(`valid ${req.body.url}`)
-    const urlJson = {original_url: req.body.url, short_url: urlArray.length}
-    urlArray.push(urlJson);
-    res.json(urlJson);
+
   }
 
   // console.log('IP Address:', address);
